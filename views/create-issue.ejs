@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h1>Create Issue</h1>
+    <hr>
+
+    <form action="/projects/<%= project._id %>/issues" method="POST">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="labels">Labels</label>
+            <select multiple class="form-control" id="labels" name="labels">
+                <% project.labels.forEach(function(label) { %>
+                <option value="<%= label %>"><%= label %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create Issue</button>
+        </div>
+    </form>
+</div>

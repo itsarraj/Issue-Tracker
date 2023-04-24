@@ -1,0 +1,25 @@
+<div>
+    <h1><%= project.name %> Issues</h1>
+    <form action="/projects/<%= project._id %>/issues" method="GET">
+        <label for="name">name:</label>
+        <input type="text" id="name" name="name" value="<%= labels %>">
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" value="<%= author %>">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" value="<%= search %>">
+        <button type="submit">Filter</button>
+    </form>
+    <a href="/projects/<%= project._id %>/issues/new">Create an issue</a>
+    <ul>
+        <% issues.forEach(issue => { %>
+        <li>
+            <a href="/issues/<%= issue._id %>"><%= issue.title %></a>
+            <ul>
+                <li>Description: <%= issue.description %></li>
+                <li>Labels: <%= issue.labels.join(', ') %></li>
+                <li>Author: <%= issue.author %></li>
+            </ul>
+        </li>
+        <% }) %>
+    </ul>
+</div>
