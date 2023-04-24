@@ -19,6 +19,10 @@ const issueSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        projectId: {
+            type: String,
+            required: true,
+        },
     },
     {
         timestamps: true,

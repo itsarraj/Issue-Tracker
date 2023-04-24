@@ -1,9 +1,10 @@
-// const express = require('express');
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-// const issueController = require('../controllers/issueController.js');
+const issueController = require('../controllers/issueController.js');
+// Get the page of create issue
+router.get('/new', issueController.createIssueGet);
+// Post the page of create issue form
+router.post('/new', issueController.createIssuePost);
 
-// router.get('/:id/issues/new', issueController.createIssue);
-// router.get('/issues/:id', issueController.);
-
-// module.exports = router;
+module.exports = router;

@@ -5,7 +5,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
-const db = require('./config/database.js');
+const db = require('./config/databsae.js');
 const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -15,7 +15,7 @@ const projectSchema = new mongoose.Schema(
             required: true,
         },
         issue: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Issue',
         },
     },
