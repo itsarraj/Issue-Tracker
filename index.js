@@ -10,7 +10,9 @@ const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static('./assets'));
+// app.use(express.static('./assets'));
+app.use('/', express.static(path.join(__dirname, 'assets')));
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
