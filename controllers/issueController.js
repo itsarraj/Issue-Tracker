@@ -1,23 +1,28 @@
+const Project = require('../models/Project.js');
+const Issue = require('../models/Issue.js');
+
 module.exports.createIssueGet = async function (req, res) {
     const project = await Project.findById(req.params.id);
-    const { labels, author, search } = req.query;
-    let query = { projectId: req.params.id };
-    if (labels) {
-        const labelArray = labels.split(',');
-        query.labels = { $in: labelArray };
-    }
-    if (author) {
-        query.author = author;
-    }
-    if (search) {
-        const searchRegex = new RegExp(search, 'i');
-        query.$or = [{ title: searchRegex }, { description: searchRegex }];
-    }
-    const issues = await Issue.find(query);
-    res.render('issues/index', { project, issues, labels, author, search });
+    const issues = await Issue.find({ projectId: req.params.id });
+
+    return res.render('create-issue', {
+        title: 'Create Issue',
+        project,
+        issues,
+    });
 };
 module.exports.createIssuePost = async function (req, res) {
+    // const { labelInput } = req.body;
+    // console.log(labelInput);
+    // if (!req.body.labels) {
+    //     req.body.labels = [];
+    // }
+
+    // req.body.labels.push(labelInput);
     const issue = new Issue(req.body);
+    const projectId = req.params.id;
+    issue.projectId = projectId;
+
     try {
         await issue.save();
         res.redirect(`/projects/${req.params.id}`);

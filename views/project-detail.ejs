@@ -1,42 +1,67 @@
-<div>
-    <h1><%= project.name %> Issues</h1>
-    <form action="/projects/<%= project._id %>/issues" method="GET">
-        <!--  -->
-        <label for="labels">Labels:</label>
-        <select id="labels" name="labels" value="<%= labels %>">
-            <% issues.labels.forEach(label => { %>
-            <option value="<%=Issues.labels%>"><%=Issues.labels%></option>
+<script src="/js/project-details.js"></script>
+<link rel="stylesheet" href="/css/project-detail.css">
 
-            <% }); %>
-            <option value=""></option>
-        </select>
-        <!--  -->
+<div class="issues-container">
 
+  <h1><%= project.name %> Issues</h1>
 
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" value="<%= author %>">
-        <!--  -->
-        <label for="search">Search:</label>
-        <input type="text" id="search" name="searchTitle" value="<%= search %>">
-        <input type="text" id="search" name="searchDescription" value="<%= search %>">
-        <!--  -->
-        <button type="submit">Filter</button>
-        <!--  -->
-        <!--  -->
-        <!-- button for new issue -->
-        <a href="/projects/<%= project._id %>/issues/new">Create an issue</a>
+  <form action="/projects/<%= project._id %>/issues" method="GET" class="issues-filter">
+    <!-- Filter by multiple labels -->
+    <label for="labels">Labels</label>
+    <select multiple class="form-control" id="labelDropdown" name="labels">
+      <% const labelSet = new Set(); %>
+      <% issues.forEach( issue => { %>
+      <% if (issue.labels){ %>
+      <% issue.labels.forEach(label => { %>
+
+      <% if (!labelSet.has(label)) { %>
+      <% labelSet.add(label); %>
+
+      <option value="<%= label %>"><%= label %></option>
+      <% } %>
+
+      <% } ) %>
+      <% }; %>
+      <% } ) %>
+    </select>
+    <input type="text" class="form-control" id="labelInput" placeholder="Search by title or description">
+
+    <!-- Filter by author -->
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" value="<%= project.author %>">
+    <div></div>
+
+    <!-- Search by title and description -->
+    <label for="searchTitle">Search: Title</label>
+    <input type="text" id="searchTitle" name="searchTitle" value=""><br>
+    <label for="searchDescription">Search: Description </label>
+    <input type="text" id="searchDescription" name="searchDescription" value="">
+    <!-- Filter button -->
+    <button type="submit" class="filter-button">Filter</button>
+
+    <!-- Creat an issue -->
+
+    <a href="/projects/<%= project._id %>/issues/new">Create an issue</a>
+
+    <!-- List of bugs related to the project -->
+    <ul>
+      <% issues.forEach(issue => { %>
+      <li>
+        <span> <%= issue.title %></span>
         <ul>
-            <% issues.forEach(issue => { %>
-            <li>
-                <a href="/issues/<%= issue._id %>"><%= issue.title %></a>
-                <ul>
-                    <li>Description: <%= issue.description %></li>
-                    <li>Labels: <%= issue.labels.join(', ') %></li>
-                    <li>Author: <%= issue.author %></li>
-                </ul>
-            </li>
-            <% }) %>
+          <li>Description: <%= issue.description %></li>
+          <li>Labels: <%= issue.labels.join(', ') %></li>
+          <li>Author: <%= issue.author %></li>
         </ul>
-    </form>
+        <br>
+      </li>
+      <% }) %>
+    </ul>
+
+  </form>
+
+  <!-- Creat an issue -->
+  <a href="/projects/<%= project._id %>/issues/new">Create an issue</a>
+
 
 </div>

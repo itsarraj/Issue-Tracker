@@ -1,15 +1,17 @@
-<div>
-    <h1>Create Project</h1>
-    <form action="/projects/new" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
+<link rel="stylesheet" href="/css/create-project.css">
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br>
+<div class="form-container">
+  <h1>Create Project</h1>
+  <form action="/projects/new" method="POST">
+    <label class="label" for="name">Name:</label>
+    <input class="input" type="text" id="name" name="name" required><br>
 
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required><br>
+    <label class="label" for="description">Description:</label>
+    <textarea class="textarea" id="description" name="description" required></textarea><br>
 
-        <button type="submit">Create Project</button>
-    </form>
+    <label class="label" for="author">Author:</label>
+    <input class="input" type="text" id="author" name="author" required><br>
+
+    <button class="button" type="submit">Create Project</button>
+  </form>
 </div>
